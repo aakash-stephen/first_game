@@ -42,7 +42,7 @@ def bowser_motion(x2,y2):
 
 while not game_quit:
     screen.fill( (255, 255, 255) ) 
-    floor = pygame.draw.rect( screen , (128,0,0) , (0 , height * 0.8 , width , 0.2 * height))  
+    floor = pygame.draw.rect( screen , (128,0,0) , (0 , height * 0.85 , width , 0.2 * height))  
     for event in pygame.event.get():
        
         #print(event)

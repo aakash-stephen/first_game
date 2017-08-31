@@ -27,7 +27,7 @@ cur_time = 0
 def player_motion(x1,y1,f=0,elap=1001):
     if f == 1 and elap < 1.5:
         screen.blit( player , (x1,y1))
-        y_change = 5
+        y_change = 10
     else:
         screen.blit( player , (x1,y1)) 
         """for i in range(-20,21):
@@ -58,10 +58,10 @@ while not game_quit:
                 #y1_change = 5
             #if event.key == pygame.K_w:
                 #y1_change = -5
-            if event.key == pygame.K_SPACE:
+            if event.key == pygame.K_SPACE and y1 == height * 0.85 -80:
                 f = 1
                 cur_time = time.clock()
-                y1_change = -5
+                y1_change = -10
             if event.key == pygame.K_LEFT: 
                 x2_change = -5
             if event.key == pygame.K_RIGHT: 

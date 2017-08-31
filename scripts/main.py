@@ -1,10 +1,10 @@
 import sys,pygame
 from pygame.locals import *
-import time
+import time,os.path
 
 pygame.init
-height = 400
-width = 800
+height,width = 400,800
+
 screen = pygame.display.set_mode((width,height))
 img_path = "C:/python/project/first_game/resources/images/"
 player = pygame.image.load( img_path + 'player.png' )

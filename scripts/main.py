@@ -3,7 +3,7 @@ from pygame.locals import *
 import time,os.path
 
 pygame.init
-height,width = 400,800
+height,width = 600,1200
 
 screen = pygame.display.set_mode((width,height))
 img_path = "C:/python/project/first_game/resources/images/"

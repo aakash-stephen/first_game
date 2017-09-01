@@ -113,7 +113,8 @@ while not game_quit:
              pygame.display.update() """
     elap = time.clock() - cur_time
     #print(elap)
-    player_motion(x1,y1,f,elap)
     bowser_motion(x2,y2)
+    player_motion(x1,y1,f,elap)
+    
     pygame.display.update()
     clock.tick(60)

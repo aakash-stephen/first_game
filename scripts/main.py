@@ -6,6 +6,7 @@ pygame.init
 height,width = 600,1200
 
 screen = pygame.display.set_mode((width,height))
+pygame.display.set_caption("fireball_arena")
 img_path = "../resources/images/"
 player = pygame.image.load( img_path + 'player.png' )
 #bowser = pygame.image.load( img_path + 'bowser.png' )

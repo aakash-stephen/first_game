@@ -28,7 +28,11 @@ cur_time = 0
 platform_height = 0.02* height
 platform_xpos1 = width * 0.1
 platform_xpos2 = width * 0.3
+platform_xpos4 =width -width*0.4
+platform_xpos6=width-width*0.2
 platform_ypos = height * 0.21
+
+
 def player_motion(x1,y1,f=0,elap=1001):
     if f == 1 and elap < 1.5:
         screen.blit( player , (x1,y1))
@@ -51,6 +55,9 @@ while not game_quit:
     platform1 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 1 , width*0.1 , platform_height))
     platform2 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos2 , platform_ypos * 2 , width*0.1 , platform_height))
     platform3 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 3 , width*0.1 , platform_height))
+    platform4 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 1 , width*0.1 , platform_height))
+    platform5 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos6 , platform_ypos * 2 , width*0.1 , platform_height))
+    platform6 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 3 , width*0.1 , platform_height))
     for event in pygame.event.get():
        
         #print(event)

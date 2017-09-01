@@ -8,9 +8,9 @@ height,width = 600,1200
 screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("fireball_arena")
 img_path = "../resources/images/"
-player = pygame.image.load( img_path + 'player.png' )
-#bowser = pygame.image.load( img_path + 'bowser.png' )
-background = pygame.image.load( img_path + 'background1.png')
+player = pygame.image.load( img_path + 'player2.png' )
+bowser = pygame.image.load( img_path + 'bowser1.png' )
+background = pygame.image.load( img_path + 'cloud_background.png')
 kaboom = pygame.image.load( img_path + 'kaboom.png')
 fireball = pygame.image.load ( img_path + 'fireball.png' )
 clock = pygame.time.Clock()
@@ -28,16 +28,20 @@ cur_time = 0
 platform_height = 0.02* height
 platform_xpos1 = width * 0.1
 platform_xpos2 = width * 0.3
+platform_xpos4 =width -width*0.4
+platform_xpos6=width-width*0.2
 platform_ypos = height * 0.21
+
+
 def player_motion(x1,y1,f=0,elap=1001):
     if f == 1 and elap < 1.5:
         screen.blit( player , (x1,y1))
         #y_change = 10
     else:
-        screen.blit( player , (x1,y1)) 
+        screen.blit( player , (x1,y1))
         """for i in range(-20,21):
             pygame.time.delay(10)
-            y1 += i/2 
+            y1 += i/2
             player_motion(x1,y1)
             screen.blit( player , (x1,y1))
             pygame.display.update()"""
@@ -46,21 +50,25 @@ def bowser_motion(x2,y2):
     screen.blit( bowser , (x2,y2))
 
 while not game_quit:
-    screen.fill( (255, 255, 255) ) 
-    floor = pygame.draw.rect( screen , (128,0,0) , (0 , height * 0.85 , width , 0.15 * height))  
+    #screen.fill( (255, 255, 255) )
+    screen.blit( background , (0,0))
+    floor = pygame.draw.rect( screen , (128,0,0) , (0 , height * 0.85 , width , 0.15 * height))
     platform1 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 1 , width*0.1 , platform_height))
     platform2 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos2 , platform_ypos * 2 , width*0.1 , platform_height))
     platform3 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 3 , width*0.1 , platform_height))
+    platform4 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 1 , width*0.1 , platform_height))
+    platform5 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos6 , platform_ypos * 2 , width*0.1 , platform_height))
+    platform6 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 3 , width*0.1 , platform_height))
     for event in pygame.event.get():
-       
+
         #print(event)
         if event.type == pygame.QUIT:
             game_quit = True
         if event.type == pygame.KEYDOWN:
             f = 0
-            if event.key == pygame.K_a: 
+            if event.key == pygame.K_a:
                 x1_change = -5
-            if event.key == pygame.K_d: 
+            if event.key == pygame.K_d:
                 x1_change = 5
             #if event.key == pygame.K_s:
                 #y1_change = 5
@@ -70,9 +78,9 @@ while not game_quit:
                 f = 1
                 cur_time = time.clock()
                 y1_change = -10
-            if event.key == pygame.K_LEFT: 
+            if event.key == pygame.K_LEFT:
                 x2_change = -5
-            if event.key == pygame.K_RIGHT: 
+            if event.key == pygame.K_RIGHT:
                 x2_change = 5
             #if event.key == pygame.K_DOWN:
                 #y2_change = 5
@@ -83,32 +91,30 @@ while not game_quit:
                 x1_change = 0
             if event.key == pygame.K_SPACE:
                 y1_change = 5
-            """if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_DOWN or event.key == pygame.K_UP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_DOWN or event.key == pygame.K_UP:
                 x2_change = 0
-                #y2_change = 0"""
-        
+                #y2_change = 0
+
     #print("1")
     if (x1 > 0 and x1 + 80 < width) or (x1 == 0 and x1_change > 0) or ( x1 + 80 == width and x1_change <0):
         x1 += x1_change
     if ((y1 > 0 and y1 + 80 < 0.85 * height) or (y1 == 0 and y1_change > 0) or ( y1 + 80 == 0.85*height and y1_change <0)):
         y1 += y1_change
-    """if (x2 > 0 and x2 + 90 < width) or (x2 == 0 and x2_change > 0) or ( x2 + 90 == width and x2_change <0):
+    if (x2 > 0 and x2 + 90 < width) or (x2 == 0 and x2_change > 0) or ( x2 + 90 == width and x2_change <0):
         x2 += x2_change
-    if (y2 > 0 and y2 + 90 < 0.85*height) or (y2 == 0 and y2_change > 0) or ( y2 + 90 == 0.85*height and y2_change <0):
+    """if (y2 > 0 and y2 + 90 < 0.85*height) or (y2 == 0 and y2_change > 0) or ( y2 + 90 == 0.85*height and y2_change <0):
         y2 += y2_change
     if f == 1:
         for i in range(-20,21):
              pygame.time.delay(10)
-             y1 += i/2 
+             y1 += i/2
              player_motion(x1,y1)
              #bowser_motion(x2,y2)
-             pygame.display.update() """         
+             pygame.display.update() """
     elap = time.clock() - cur_time
     #print(elap)
-    player_motion(x1,y1,f,elap)           
-    #bowser_motion(x2,y2)
+    bowser_motion(x2,y2)
+    player_motion(x1,y1,f,elap)
+    
     pygame.display.update()
     clock.tick(60)
-        
-        
-

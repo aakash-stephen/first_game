@@ -4,6 +4,11 @@ import time,os.path
 
 pygame.init
 height,width = 600,1200
+platform_width = 90
+platform_height = 30
+platform_y_pos = (0.85*height-platform_height*3)/4
+platform4_x_pos = width - 250 #same will be for platform 6
+platform5_x_pos = width - 400
 
 screen = pygame.display.set_mode((width,height))
 pygame.display.set_caption("fireball_arena")
@@ -43,7 +48,10 @@ def bowser_motion(x2,y2):
 
 while not game_quit:
     screen.fill( (255, 255, 255) ) 
-    floor = pygame.draw.rect( screen , (128,0,0) , (0 , height * 0.85 , width , 0.2 * height))  
+    floor = pygame.draw.rect( screen , (128,0,0) , (0 , height * 0.85 , width , 0.2 * height))
+    platform4 = pygame.draw.rect( screen , (128,0,0) , (platform4_x_pos , 3*platform_y_pos , platform_width , platform_height))
+    platform5 = pygame.draw.rect( screen , (128,0,0) , (platform5_x_pos , 2*platform_y_pos , platform_width , platform_height))
+    platform6 = pygame.draw.rect( screen , (128,0,0) , (platform4_x_pos , platform_y_pos , platform_width , platform_height))
     for event in pygame.event.get():
        
         #print(event)
@@ -103,5 +111,6 @@ while not game_quit:
     pygame.display.update()
     clock.tick(60)
         
-        
+pygame.quit()
+quit()
 

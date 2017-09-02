@@ -118,3 +118,6 @@ while not game_quit:
     
     pygame.display.update()
     clock.tick(60)
+
+pygame.quit()
+quit()

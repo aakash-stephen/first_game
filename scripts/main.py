@@ -25,12 +25,37 @@ y2_change = 0
 f = 0
 game_quit = False
 cur_time = 0
+platform_width=width*0.1
 platform_height = 0.02* height
 platform_xpos1 = width * 0.1
 platform_xpos2 = width * 0.3
 platform_xpos4 =width -width*0.4
 platform_xpos6=width-width*0.2
 platform_ypos = height * 0.21
+
+def platform1_boundx(x1,y1,x1_change):
+    a = False
+    if (y1>platform_ypos-80 and y1<platform_ypos+80):
+        if (x1+80<platform_xpos1) and x1_change >0:
+            a=True
+        elif (x1>platform_xpos1+platform_width)and x1_change<0:
+            a=True
+    else:
+        a=True
+
+    return a
+
+def platform1_boundy(x1,y1,y1_change):
+    a=False
+    if (x1>platform_xpos1-80) and (x1<platform_xpos1+platform_width+80):
+        if (y1>platform_ypos+platform_height) and y1_change <0:
+            a=True
+        elif (y1+80<platform_ypos) and y1_change>0:
+            a=True
+    else:
+        a=True
+
+    return a
 
 
 def player_motion(x1,y1,f=0,elap=1001):
@@ -53,12 +78,12 @@ while not game_quit:
     #screen.fill( (255, 255, 255) )
     screen.blit( background , (0,0))
     floor = pygame.draw.rect( screen , (128,0,0) , (0 , height * 0.85 , width , 0.15 * height))
-    platform1 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 1 , width*0.1 , platform_height))
-    platform2 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos2 , platform_ypos * 2 , width*0.1 , platform_height))
-    platform3 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 3 , width*0.1 , platform_height))
-    platform4 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 1 , width*0.1 , platform_height))
-    platform5 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos6 , platform_ypos * 2 , width*0.1 , platform_height))
-    platform6 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 3 , width*0.1 , platform_height))
+    platform1 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 1 , platform_width , platform_height))
+    platform2 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos2 , platform_ypos * 2 , platform_width , platform_height))
+    platform3 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos1 , platform_ypos * 3 , platform_width , platform_height))
+    platform4 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 1 , platform_width, platform_height))
+    platform5 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos6 , platform_ypos * 2 , platform_width , platform_height))
+    platform6 = pygame.draw.rect( screen , (128,0,0) , (platform_xpos4 , platform_ypos * 3 , platform_width , platform_height))
     for event in pygame.event.get():
 
         #print(event)
@@ -97,9 +122,11 @@ while not game_quit:
 
     #print("1")
     if (x1 > 0 and x1 + 80 < width) or (x1 == 0 and x1_change > 0) or ( x1 + 80 == width and x1_change <0):
-        x1 += x1_change
+        if platform1_boundx(x1,y1,x1_change):
+            x1 += x1_change
     if ((y1 > 0 and y1 + 80 < 0.85 * height) or (y1 == 0 and y1_change > 0) or ( y1 + 80 == 0.85*height and y1_change <0)):
-        y1 += y1_change
+        if platform1_boundy(x1,y1,y1_change):
+            y1+=y1_change
     if (x2 > 0 and x2 + 90 < width) or (x2 == 0 and x2_change > 0) or ( x2 + 90 == width and x2_change <0):
         x2 += x2_change
     """if (y2 > 0 and y2 + 90 < 0.85*height) or (y2 == 0 and y2_change > 0) or ( y2 + 90 == 0.85*height and y2_change <0):
@@ -115,7 +142,7 @@ while not game_quit:
     #print(elap)
     bowser_motion(x2,y2)
     player_motion(x1,y1,f,elap)
-    
+
     pygame.display.update()
     clock.tick(60)
 
